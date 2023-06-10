@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  jenkins:
+    build:
+      context: .
+    ports:
+      - "8081:8080"  # Mapeo del puerto 8080 del contenedor al puerto 8081 del host
+    volumes:
+      - jenkins_home:/var/jenkins_home  # Volumen para almacenar los datos y la configuración de Jenkins
+      - /var/run/docker.sock:/var/run/docker.sock  # Montaje del socket de Docker para interactuar con el host
+    user: root  # Ejecución del contenedor con privilegios de root
+    restart: always  # Reinicio automático del contenedor
+    networks:
+      - ase-acad  # Conexión a la red llamada "ase-acad"
+
+volumes:
+  jenkins_home:
+
+networks:
+  ase-acad:
